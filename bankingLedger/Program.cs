@@ -6,15 +6,16 @@ namespace bankingLedger
 {
     class Program
     {
+
+        public static List<Account> accounts = new List<Account>();
+
         static void Main(string[] args)
         {
             bool programComplete = false;
-            List<Account> accounts = new List<Account>();
+            
 
             while (!programComplete)
             {
-
-
                 Console.WriteLine("Welcome. What would you like to do?");
                 Console.WriteLine("\t1 - Login");
                 Console.WriteLine("\t2 - Create an Account");
@@ -79,8 +80,12 @@ namespace bankingLedger
                 }
                 Console.Write("*");
                 pin += key.KeyChar;
-            }           
-            Console.WriteLine($"Great, this is your username: {username}\n\nAnd this is your pin: {pin}");
+            }
+            Account account = new Account(username, pin);
+            accounts.Add(account);
+
+                       
+
 
         }
     }
