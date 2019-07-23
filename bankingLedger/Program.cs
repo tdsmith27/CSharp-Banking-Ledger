@@ -84,6 +84,8 @@ namespace bankingLedger
             Account account = new Account(username, pin);
             accounts.Add(account);
 
+            Session session = new Session(account);
+            session.Main();
                        
 
 
