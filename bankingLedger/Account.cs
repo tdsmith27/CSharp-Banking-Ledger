@@ -18,5 +18,11 @@ namespace bankingLedger
             this.transactionLog = new List<Transaction>();
             this.balance = 0;
         }
+
+        public void ValidateWithdrawal(double amount)
+        {
+            if (amount > this.balance)
+                throw new ArgumentException("Cannot withdraw more than is in the balance");          
+        }
     }
 }
