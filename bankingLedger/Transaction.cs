@@ -3,12 +3,14 @@ namespace bankingLedger
 {
     public class Transaction
     {
+        DateTime time;
         string type { get; set; }
         double amount;
         double resultingBalance;
 
         public Transaction(string type, double amount, double resultingBalance)
         {
+            this.time = DateTime.Now;
             this.type = type;
             this.amount = amount;
             this.resultingBalance = resultingBalance;
@@ -21,7 +23,7 @@ namespace bankingLedger
 
         public string Log()
         {
-            return $"{this.type} of ${this.amount.ToString("n2")} resulting in a balance of ${this.resultingBalance.ToString("n2")}";
+            return $"{this.time}: {this.type} of ${this.amount.ToString("n2")} resulting in a balance of ${this.resultingBalance.ToString("n2")}";
         }
         
     }

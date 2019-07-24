@@ -1,36 +1,37 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+
 namespace bankingLedger
 {
     public class Validate
-    {
-        public static bool Deposit(string deposit)
+    {        
+        public static void Input(string input, string type)
         {
             try
             {
-                double amount = double.Parse(deposit);
-                if (amount > 0)
+
+                switch (type)
                 {
-                return true;
+                    case "Transaction":
+                        Transaction(input);                   
+                        break;
+                    default:                    
+                        break;
                 }
-                return false;
             }
-            catch
+            catch (Exception e)
             {
-                return false;
+                throw e;
             }
         }
 
-        public static bool Input(string input, string type)
-        {
-            switch (type)
+        public static void Transaction(string deposit)
+        {            
+            if (!Regex.IsMatch(deposit, @"^[1-9]{1}[0-9]*\.?[0-9]{0,2}$"))
             {
-                case "Deposit":
-                    return Deposit(input);                   
-                    break;
-                default:
-                    return false;
-                    break;
-            }
-        }
+                throw new Exception("Transaction amount must be a positive number with up to 2 decimal places");
+            }            
+        }        
     }
 }

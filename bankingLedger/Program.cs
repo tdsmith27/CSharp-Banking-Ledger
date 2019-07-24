@@ -16,6 +16,7 @@ namespace bankingLedger
 
             while (!programComplete)
             {
+                Console.Clear();
                 Console.WriteLine("Welcome. What would you like to do?");
                 Console.WriteLine("\t1 - Login");
                 Console.WriteLine("\t2 - Create an Account");

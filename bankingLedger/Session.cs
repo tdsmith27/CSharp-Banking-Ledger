@@ -17,7 +17,7 @@ namespace bankingLedger
             bool loggedIn = true;
 
             while (loggedIn)
-            {                
+            {
                 Console.WriteLine("\nWhat would you like to do today?");
                 Console.WriteLine("\t1 - Make a deposit");
                 Console.WriteLine("\t2 - Make a withdrawal");
@@ -36,78 +36,71 @@ namespace bankingLedger
                     {
                         case "1":
                             validMenuChoice = true;
-                            Console.WriteLine("How much would you like to deposit?");
-                            bool success = false;
-                            string depositStr;
-                            while (!success)
-                            {
-
-                                depositStr = Console.ReadLine();
-                                if (Validate.Input(depositStr, "Deposit"))
-                                {
-                                    success = true;
-                                    double deposit = double.Parse(depositStr);
-                                    Transaction transaction = new Transaction("Deposit", deposit, account.balance + deposit);                                    
-                                    account.balance += deposit;
-                                    account.transactionLog.Add(transaction);
-                                } else
-                                {
-                                    Console.WriteLine("Please enter a valid deposit amount");
-                                }
-                                
-                                
-                            }                            
+                            this.Deposit();                            
                             break;
                         case "2":
                             validMenuChoice = true;
-                            Console.WriteLine("You have selected: Make a withdrawal\n");
-                            Console.WriteLine("How much would you like to withdraw?");
-                            bool withdrawSuccess = false;
-
-                            while (!withdrawSuccess)
-                            {
-
-                                try
-                                {
-                                    double withdrawal = Convert.ToDouble(Console.ReadLine());
-                                    account.ValidateWithdrawal(withdrawal);
-                                    withdrawSuccess = true;
-                                    Transaction withdrawTransaction = new Transaction("Withdrawal", withdrawal, account.balance - withdrawal);
-                                    account.balance -= withdrawal;
-                                    account.transactionLog.Add(withdrawTransaction);
-                                }
-                                catch (Exception e)
-                                {
-                                    Console.WriteLine(e.Message);
-                                    Console.WriteLine("Please enter a valid withdrawal amount");
-                                }
-                            }
-
-                            
+                            this.Withdraw();                            
                             break;
                         case "3":
                             validMenuChoice = true;
-                            Console.WriteLine("You have selected: Check account balance\n");
-                            Console.WriteLine($"Your account balance is ${account.balance}");
+                            Console.WriteLine($"Your account balance is ${account.CheckBalance()}");
                             break;
                         case "4":
                             validMenuChoice = true;
                             Console.WriteLine("\nTransaction Log:\n");
-                             for (int i = 0; i < account.transactionLog.Count; i++)
-                            {
-                                Transaction item = account.transactionLog[i];
-                                Console.WriteLine($"{i + 1}: {item.Log()}");
-                            }
+                            account.LogTransactions(); 
                             break;
                         case "5":
                             validMenuChoice = true;
-                            Console.Clear();
                             loggedIn = false;
                             break;
                         default:
                             Console.WriteLine("Please select an option from the list");
                             break;
                     }
+                }
+            }
+        }
+
+        void Deposit()
+        {
+            Console.WriteLine("How much would you like to deposit?");
+            bool success = false;
+            while (!success)
+            {
+                string deposit = Console.ReadLine();
+                try
+                {
+                    Validate.Input(deposit, "Transaction");
+                    account.Deposit(double.Parse(deposit));
+                    success = true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine("Please enter a valid deposit amount");
+                }
+            }
+        }
+
+        void Withdraw()
+        {
+            Console.WriteLine("How much would you like to withdraw?");
+            bool success = false;
+            while (!success)
+            {
+                string withdrawal = Console.ReadLine();
+                try
+                {
+                    Validate.Input(withdrawal, "Transaction");
+                    account.Withdraw(double.Parse(withdrawal));
+                    success = true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine("Please enter a valid withdrawal amount");
                 }
             }
         }
