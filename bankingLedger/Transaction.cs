@@ -4,7 +4,7 @@ namespace bankingLedger
     public class Transaction
     {
         DateTime time;
-        string type { get; set; }
+        string type;
         double amount;
         double resultingBalance;
 
@@ -14,12 +14,7 @@ namespace bankingLedger
             this.type = type;
             this.amount = amount;
             this.resultingBalance = resultingBalance;
-        }
-
-        //public Transaction(string type)
-        //{
-        //    this.type = type;
-        //}
+        }        
 
         public string Log()
         {

@@ -78,8 +78,8 @@ namespace bankingLedger
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
-                    Console.WriteLine("Please enter a valid deposit amount");
+                    var errors = new string[2] { e.Message, "Please enter a valid deposit amount" };
+                    Format.Error(errors);
                 }
             }
         }
@@ -99,10 +99,10 @@ namespace bankingLedger
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
-                    Console.WriteLine("Please enter a valid withdrawal amount");
+                    var errors = new string[2] { e.Message, "Please enter a valid withdrawal amount" };
+                    Format.Error(errors);                    
                 }
             }
         }
-    }
+    }    
 }

@@ -22,9 +22,9 @@ namespace bankingLedger
                 Console.WriteLine("\t2 - Create an Account");
                 Console.WriteLine("\t3 - Exit Program");
 
-                bool validMenuChoice = false;
+                bool isValidMenuChoice = false;
             
-                while (!validMenuChoice)
+                while (!isValidMenuChoice)
                 {
 
                     string menuChoice = Console.ReadLine();
@@ -32,16 +32,17 @@ namespace bankingLedger
                     switch (menuChoice)
                     {
                         case "1":
-                            validMenuChoice = true;
+                            Login();
+                            isValidMenuChoice = true;
                             break;
                         case "2":
                             Console.WriteLine("You have chosen to Create an Account");
                             CreateAccount();
-                            validMenuChoice = true;
+                            isValidMenuChoice = true;
                             break;
                         case "3":
                             Console.WriteLine("Thank you for using the program\n\n\tHave a nice day!");
-                            validMenuChoice = true;
+                            isValidMenuChoice = true;
                             programComplete = true;
                             break;
                         default:
@@ -52,44 +53,68 @@ namespace bankingLedger
             }
         }
 
-        //static void Login()
-        //{
-        //    string username; int pin;
+        static void Login()
+        {                       
+            Console.WriteLine("Please enter your username");
+            bool isValidUsername = false;
 
-        //    Console.Clear();
-        //    Console.WriteLine("Please enter your username");
-        //    username = Console.ReadLine();
+            while (!isValidUsername)
+            {
+                string username = Console.ReadLine();
+                try
+                {
+                    var account = Authenticate.Username(username);
+                    isValidUsername = true;
+
+                    bool isMatch = false;
+
+                    while(!isMatch)
+                    {
+                        try
+                        {
+                            Console.WriteLine("Please enter your pin");
+                            Console.Write("pin: ");
+                            string pin = Format.Pin();
+                            Authenticate.Pin(pin, account);
+                            isMatch = true;
+                        }
+                        catch (Exception e)
+                        {
+                            var errors = new string[2] { e.Message, "Please try again" };
+                            Format.Error(errors);
+                        }
+                    }
+
+                    var session = new Session(account);
+                    session.Main();
+
+                }
+                catch (Exception e)
+                {
+                    var errors = new string[2] { e.Message, "Please try again" };
+                    Format.Error(errors);
+                }
+            }
 
 
-        //}
+
+        }
 
         static void CreateAccount()
         {
-            Console.WriteLine("Please type in your desired username");
-            string username = Console.ReadLine();
+            Console.WriteLine("\nPlease type in your desired username");
+            string username = Console.ReadLine();           
+
             Console.WriteLine("Please enter a 4 digit numeric pin");
             Console.Write("pin: ");
-            string pin = null;
-            while (true)
-            {
-                var key = Console.ReadKey(true);
-                
-                if (key.Key == ConsoleKey.Enter)
-                {
-                    Console.Write("\n");
-                    break;
-                }
-                Console.Write("*");
-                pin += key.KeyChar;
-            }
+            string pin = Format.Pin();
+                            
             Account account = new Account(username, pin);
             accounts.Add(account);
 
             Session session = new Session(account);
             session.Main();
                        
-
-
-        }
+        }      
     }
 }

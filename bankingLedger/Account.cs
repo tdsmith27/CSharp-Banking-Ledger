@@ -6,7 +6,7 @@ namespace bankingLedger
     public class Account
     {
         public string username;
-        string pin;
+        public string pin;
         List<Transaction> transactionLog;
         double balance;
 
