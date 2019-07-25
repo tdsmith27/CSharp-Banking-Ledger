@@ -14,13 +14,23 @@ namespace bankingLedger
             }
 
             throw new Exception("Username not found");
-
         }
 
-        public static void Pin(string pin, Account account)
+        public static void NewUsername(string username)
         {
-            if (pin != account.pin)
-                throw new Exception("Pin does not match");
+            foreach (var account in Program.accounts)
+            {
+                if (account.username == username)
+                {
+                    throw new Exception("That username already exists");
+                }
+            }
         }
+
+        //public static void Pin(string pin, Account account)
+        //{
+        //    if (pin != account.pin)
+        //        throw new Exception("Pin does not match");
+        //}
     }
 }

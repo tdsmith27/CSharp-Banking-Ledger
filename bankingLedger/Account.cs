@@ -5,40 +5,40 @@ namespace bankingLedger
 {
     public class Account
     {
-        public string username;
-        public string pin;
+        public string username { get; private set; }
+        private string pin;
         List<Transaction> transactionLog;
-        double balance;
+        decimal balance;
 
         public Account(string username, string pin)
         {
             this.username = username;
             this.pin = pin;
-            this.transactionLog = new List<Transaction>();
-            this.balance = 0;
+            transactionLog = new List<Transaction>();
+            balance = 0;
         }      
 
-        public void Deposit(double amount)
+        public void Deposit(decimal amount)
         {
-            var transaction = new Transaction("Deposit", amount, this.balance + amount);
-            this.balance += amount;
-            this.transactionLog.Add(transaction);
+            var transaction = new Transaction("Deposit", amount, balance + amount);
+            balance += amount;
+            transactionLog.Add(transaction);
         }
 
-        public void Withdraw (double amount)
+        public void Withdraw (decimal amount)
         {
-            if (amount > this.balance)
+            if (amount > balance)
             {
                 throw new Exception("Not enough funds");
             }
-            var transaction = new Transaction("Withdrawal", amount, this.balance - amount);
-            this.balance -= amount;
-            this.transactionLog.Add(transaction);            
+            var transaction = new Transaction("Withdrawal", amount, balance - amount);
+            balance -= amount;
+            transactionLog.Add(transaction);            
         }
 
-        public double CheckBalance()
+        public string CheckBalance()
         {
-            return balance;
+            return balance.ToString("n2");
         }
 
         public void LogTransactions()
@@ -46,8 +46,14 @@ namespace bankingLedger
             for (int i = 0; i < transactionLog.Count; i++)
             {
                 var transaction = transactionLog[i];
-                Console.WriteLine($"{i + 1}: {transaction.Log()}");
+                Console.WriteLine($"{i + 1} - {transaction.Log()}");                
             }
+        }
+
+        public void AuthenticatePin(string pin)
+        {
+            if (pin != this.pin)
+                throw new Exception("Pin does not match");
         }
     }
 }

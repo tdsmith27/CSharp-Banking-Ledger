@@ -5,19 +5,18 @@ namespace bankingLedger
     {
         public static void Error(string[] args)
         {
+            Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("-----");
             foreach (var message in args)
             {
                 Console.WriteLine(message);
             }
-            Console.WriteLine("-----");
             Console.ResetColor();
         }
 
         public static void Prompt(string prompt)
-        {
-            Console.ForegroundColor = ConsoleColor.DarkBlue;
+        {            
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine(prompt);
             Console.ResetColor();
         }

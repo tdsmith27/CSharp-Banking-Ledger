@@ -5,10 +5,10 @@ namespace bankingLedger
     {
         DateTime time;
         string type;
-        double amount;
-        double resultingBalance;
+        decimal amount;
+        decimal resultingBalance;
 
-        public Transaction(string type, double amount, double resultingBalance)
+        public Transaction(string type, decimal amount, decimal resultingBalance)
         {
             this.time = DateTime.Now;
             this.type = type;

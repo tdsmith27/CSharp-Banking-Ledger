@@ -44,16 +44,19 @@ namespace bankingLedger
                             break;
                         case "3":
                             validMenuChoice = true;
+                            Console.WriteLine();
                             Console.WriteLine($"Your account balance is ${account.CheckBalance()}");
                             break;
                         case "4":
                             validMenuChoice = true;
+                            Console.WriteLine();
                             Console.WriteLine("\nTransaction Log:\n");
                             account.LogTransactions(); 
                             break;
                         case "5":
                             validMenuChoice = true;
                             loggedIn = false;
+                            Console.Clear();
                             break;
                         default:
                             Console.WriteLine("Please select an option from the list");
@@ -65,7 +68,7 @@ namespace bankingLedger
 
         void Deposit()
         {
-            Console.WriteLine("How much would you like to deposit?");
+            Format.Prompt("How much would you like to deposit?");
             bool success = false;
             while (!success)
             {
@@ -73,8 +76,9 @@ namespace bankingLedger
                 try
                 {
                     Validate.Input(deposit, "Transaction");
-                    account.Deposit(double.Parse(deposit));
+                    account.Deposit(decimal.Parse(deposit));
                     success = true;
+                    Console.WriteLine("Deposit Successful");
                 }
                 catch (Exception e)
                 {
@@ -86,7 +90,7 @@ namespace bankingLedger
 
         void Withdraw()
         {
-            Console.WriteLine("How much would you like to withdraw?");
+            Format.Prompt("How much would you like to withdraw?");
             bool success = false;
             while (!success)
             {
@@ -94,8 +98,9 @@ namespace bankingLedger
                 try
                 {
                     Validate.Input(withdrawal, "Transaction");
-                    account.Withdraw(double.Parse(withdrawal));
+                    account.Withdraw(decimal.Parse(withdrawal));
                     success = true;
+                    Console.WriteLine("Withdrawal Successful");
                 }
                 catch (Exception e)
                 {
