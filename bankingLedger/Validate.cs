@@ -10,7 +10,6 @@ namespace bankingLedger
         {
             try
             {
-
                 switch (type)
                 {
                     case "Transaction":

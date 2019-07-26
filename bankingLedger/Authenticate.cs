@@ -12,7 +12,6 @@ namespace bankingLedger
                     return account;
                 }
             }
-
             throw new Exception("Username not found");
         }
 
@@ -25,12 +24,6 @@ namespace bankingLedger
                     throw new Exception("That username already exists");
                 }
             }
-        }
-
-        //public static void Pin(string pin, Account account)
-        //{
-        //    if (pin != account.pin)
-        //        throw new Exception("Pin does not match");
-        //}
+        }       
     }
 }

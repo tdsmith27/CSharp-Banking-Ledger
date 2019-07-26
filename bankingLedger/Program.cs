@@ -7,7 +7,7 @@ namespace bankingLedger
     class Program
     {
 
-        public static List<Account> accounts = new List<Account>();
+        public static List<Account> accounts = new List<Account> {new Account("trevor", "1234") };
 
         static void Main(string[] args)
         {

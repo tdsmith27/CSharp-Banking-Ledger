@@ -33,12 +33,18 @@ namespace bankingLedger
                 switch (key.Key)
                 {
                     case ConsoleKey.Backspace:
+                        if (pin == null)
+                            break;
                         pin = pin.Substring(0, pin.Length - 1);
-                        Console.Write("\b \b");
+                        Console.Write("\b \b");                        
                         break;
                     case ConsoleKey.Enter:
                         try
                         {
+                            if (pin == null)
+                            {
+                                break;
+                            }
                             Validate.Input(pin, "Pin");
                             isValid = true;
                             Console.Write("\n");
