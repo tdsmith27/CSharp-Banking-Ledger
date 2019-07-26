@@ -45,12 +45,12 @@ namespace bankingLedger
                         case "3":
                             validMenuChoice = true;
                             Console.WriteLine();
-                            Console.WriteLine($"Your account balance is ${account.CheckBalance()}");
+                            Format.Message($"Your account balance is ${account.CheckBalance()}");
                             break;
                         case "4":
                             validMenuChoice = true;
                             Console.WriteLine();
-                            Console.WriteLine("\nTransaction Log:\n");
+                            Format.Message("\nTransaction Log:\n");
                             account.LogTransactions(); 
                             break;
                         case "5":
@@ -59,7 +59,7 @@ namespace bankingLedger
                             Console.Clear();
                             break;
                         default:
-                            Console.WriteLine("Please select an option from the list");
+                            Format.Error(new string[1] { "Please select an option from the list" });
                             break;
                     }
                 }
@@ -75,10 +75,10 @@ namespace bankingLedger
                 string deposit = Console.ReadLine();
                 try
                 {
-                    Validate.Input(deposit, "Transaction");
+                    Validate.Transaction(deposit);
                     account.Deposit(decimal.Parse(deposit));
                     success = true;
-                    Console.WriteLine("Deposit Successful");
+                    Format.Message("Deposit Successful");
                 }
                 catch (Exception e)
                 {
@@ -97,10 +97,10 @@ namespace bankingLedger
                 string withdrawal = Console.ReadLine();
                 try
                 {
-                    Validate.Input(withdrawal, "Transaction");
+                    Validate.Transaction(withdrawal);
                     account.Withdraw(decimal.Parse(withdrawal));
                     success = true;
-                    Console.WriteLine("Withdrawal Successful");
+                    Format.Message("Withdrawal Successful");
                 }
                 catch (Exception e)
                 {

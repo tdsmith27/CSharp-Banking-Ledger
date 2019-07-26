@@ -6,7 +6,7 @@ namespace bankingLedger
     public class Account
     {
         public string username { get; private set; }
-        private string pin;
+        public string pin { private get; set; }
         List<Transaction> transactionLog;
         decimal balance;
 
@@ -46,7 +46,7 @@ namespace bankingLedger
             for (int i = 0; i < transactionLog.Count; i++)
             {
                 var transaction = transactionLog[i];
-                Console.WriteLine($"{i + 1} - {transaction.Log()}");                
+                Format.Message($"{i + 1} - {transaction.Log()}");                
             }
         }
 

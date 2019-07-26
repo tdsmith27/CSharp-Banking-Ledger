@@ -13,17 +13,6 @@ namespace bankingLedger
                 }
             }
             throw new Exception("Username not found");
-        }
-
-        public static void NewUsername(string username)
-        {
-            foreach (var account in Program.accounts)
-            {
-                if (account.username == username)
-                {
-                    throw new Exception("That username already exists");
-                }
-            }
-        }       
+        }            
     }
 }

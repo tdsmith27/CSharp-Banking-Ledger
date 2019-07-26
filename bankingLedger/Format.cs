@@ -21,6 +21,13 @@ namespace bankingLedger
             Console.ResetColor();
         }
 
+        public static void Message(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(message);
+            Console.ResetColor();
+        }
+
         public static string Pin()
         {
             string pin = null;
@@ -45,7 +52,7 @@ namespace bankingLedger
                             {
                                 break;
                             }
-                            Validate.Input(pin, "Pin");
+                            Validate.Pin(pin);
                             isValid = true;
                             Console.Write("\n");
                             break;

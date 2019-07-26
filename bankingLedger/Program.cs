@@ -13,7 +13,6 @@ namespace bankingLedger
         {
             bool programComplete = false;
             
-
             while (!programComplete)
             {
                 Console.WriteLine("What would you like to do?");
@@ -39,7 +38,7 @@ namespace bankingLedger
                             isValidMenuChoice = true;
                             break;
                         case "3":
-                            Console.WriteLine("Thank you for using the program\n\n\tHave a nice day!");
+                            Console.WriteLine("\nThank you for using the program\nHave a nice day!\n");
                             isValidMenuChoice = true;
                             programComplete = true;
                             break;
@@ -54,7 +53,7 @@ namespace bankingLedger
         static void Login()
         {
             Console.WriteLine();
-            Console.WriteLine("Please enter your username");
+            Format.Prompt("Please enter your username");
             string username = Console.ReadLine();            
             try
             {
@@ -90,14 +89,14 @@ namespace bankingLedger
 
         static void CreateAccount()
         {
-            Console.WriteLine("\nPlease type in your desired username");
+            Format.Prompt("\nPlease type in your desired username");
             string username = Console.ReadLine();
 
             try
             {
-                Authenticate.NewUsername(username);
+                Validate.NewUsername(username);
 
-                Console.WriteLine("Please enter a 4 digit numeric pin");
+                Format.Prompt("Please enter a 4 digit numeric pin");
                 Console.Write("pin: ");
                 string pin = Format.Pin();
                             
