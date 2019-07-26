@@ -14,11 +14,11 @@ namespace bankingLedger
             }            
         }
 
-        public static void Pin(string pin)
+        public static void Password(string password)
         {
-            if (!Regex.IsMatch(pin, @"^[0-9]{4}$"))
+            if (!Regex.IsMatch(password, @"^[\S]{6,}"))
             {
-                throw new Exception("Pin must be 4 numbers 0-9");
+                throw new Exception("Password must be at least 6 characters long with no whitespaces");
             }
         }        
 

@@ -24,9 +24,9 @@ namespace bankingLedger
             Console.ResetColor();
         }
 
-        public static string Pin()
+        public static string Password()
         {
-            string pin = null;
+            string password = null;
             bool isValid = false;
 
             while (!isValid)
@@ -36,19 +36,19 @@ namespace bankingLedger
                 switch (key.Key)
                 {
                     case ConsoleKey.Backspace:
-                        if (pin == null)
+                        if (password == null)
                             break;
-                        pin = pin.Substring(0, pin.Length - 1);
+                        password = password.Substring(0, password.Length - 1);
                         Console.Write("\b \b");                        
                         break;
                     case ConsoleKey.Enter:
                         try
                         {
-                            if (pin == null)
+                            if (password == null)
                             {
                                 break;
                             }
-                            Validate.Pin(pin);
+                            Validate.Password(password);
                             isValid = true;
                             Console.Write("\n");
                             break;
@@ -57,18 +57,18 @@ namespace bankingLedger
                         {
                             Console.WriteLine("\n");
                             Format.Error(e.Message);
-                            Format.Error("Please enter a valid pin");
-                            pin = null;
+                            Format.Error("Please enter a valid password");
+                            password = null;
                             break;
                         }
                     default:
                         Console.Write("*");
-                        pin += key.KeyChar;
+                        password += key.KeyChar;
                         break;
                 }
             }
 
-            return pin;
+            return password;
 
         }
 

@@ -41,11 +41,11 @@ namespace bankingLedger
             {
                 if (transaction.type == "Deposit")
                 {
-                    balance += transaction.amount;
-                }
+                    balance += transaction.amount;                
+                }               
                 if (transaction.type == "Withdrawal")
                 {
-                    balance -= transaction.amount;
+                    balance -= transaction.amount;                
                 }
             }
 
@@ -54,17 +54,29 @@ namespace bankingLedger
 
         public void LogTransactions()
         {
+            decimal balance = 0;
+            Format.Message("\nTransaction Log:");
             for (int i = 0; i < transactionLog.Count; i++)
             {
                 var transaction = transactionLog[i];
-                Format.Message($"{i + 1} - {transaction.Log()}");                
+
+                if (transaction.type == "Deposit")
+                {
+                    balance += transaction.amount;
+                }
+                if (transaction.type == "Withdrawal")
+                {
+                    balance -= transaction.amount;
+                }
+                Format.Message($"{transaction.time} - {transaction.type}: {transaction.amount.ToString("n2")} - Balance: {balance.ToString("n2")} ");
+
             }
         }
 
-        public void AuthenticatePin(string pin)
+        public void AuthenticatePassword(string pin)
         {
             if (pin != this.pin)
-                throw new Exception("Pin does not match");
+                throw new Exception("Password does not match");
         }
     }
 }

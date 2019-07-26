@@ -49,8 +49,6 @@ namespace bankingLedger
                             break;
                         case "4":
                             validMenuChoice = true;
-                            Console.WriteLine();
-                            Format.Message("\nTransaction Log:\n");
                             account.LogTransactions(); 
                             break;
                         case "5":

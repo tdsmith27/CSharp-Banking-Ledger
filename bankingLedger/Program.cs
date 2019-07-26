@@ -7,7 +7,7 @@ namespace bankingLedger
     static class Program
     {
 
-        public static List<Account> accounts = new List<Account> {new Account("trevor", "1234") };
+        public static List<Account> accounts = new List<Account> {new Account("trevor", "password") };
 
         static void Main(string[] args)
         {
@@ -66,10 +66,10 @@ namespace bankingLedger
                 {
                     try
                     {
-                        Format.Prompt("Please enter your pin");
-                        Console.Write("pin: ");
-                        string pin = Format.Pin();
-                        account.AuthenticatePin(pin);
+                        Format.Prompt("Please enter your password");
+                        Console.Write("password: ");
+                        string password = Format.Password();
+                        account.AuthenticatePassword(password);
                         isMatch = true;
 
                         var session = new Session(account);
@@ -100,11 +100,11 @@ namespace bankingLedger
             {
                 Validate.NewUsername(username);
 
-                Format.Prompt("Please enter a 4 digit numeric pin");
-                Console.Write("pin: ");
-                string pin = Format.Pin();
+                Format.Prompt("Please enter a password (minimum 6 characters)");
+                Console.Write("password: ");
+                string password = Format.Password();
                             
-                Account account = new Account(username, pin);
+                Account account = new Account(username, password);
                 accounts.Add(account);
 
                 Session session = new Session(account);
