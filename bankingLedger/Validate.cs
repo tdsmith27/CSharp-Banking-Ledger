@@ -11,10 +11,11 @@ namespace bankingLedger
             if (!Regex.IsMatch(deposit, @"^[0-9]*\.?[0-9]{0,2}$"))
             {
                 throw new Exception("Transaction amount must be a positive number with up to 2 decimal places");
-            } if (deposit == "0")
-            {
-                throw new Exception("Transaction amount cannot be 0");
-            }            
+            }
+            //if (deposit == "0")
+            //{
+            //    throw new Exception("Transaction amount cannot be 0");
+            //}            
         }
 
         public static void Pin(string pin)
@@ -31,7 +32,7 @@ namespace bankingLedger
             {
                 if (account.username == username)
                 {
-                    throw new Exception("That username already exists");
+                    throw new Exception("That username already exists - would you like to log in?");
                 }
             }
         }

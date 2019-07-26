@@ -3,20 +3,16 @@ namespace bankingLedger
 {
     public class Format
     {
-        public static void Error(string[] args)
+        public static void Error(string error)
         {
-            Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Red;
-            foreach (var message in args)
-            {
-                Console.WriteLine(message);
-            }
+            Console.WriteLine(error);
             Console.ResetColor();
         }
 
         public static void Prompt(string prompt)
         {            
-            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(prompt);
             Console.ResetColor();
         }
@@ -59,9 +55,9 @@ namespace bankingLedger
                         }
                         catch (Exception e)
                         {
-                            var errors = new string[2] { e.Message, "Please enter a valid pin" };
                             Console.WriteLine("\n");
-                            Format.Error(errors);
+                            Format.Error(e.Message);
+                            Format.Error("Please enter a valid pin");
                             pin = null;
                             break;
                         }

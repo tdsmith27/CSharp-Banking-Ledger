@@ -43,7 +43,8 @@ namespace bankingLedger
                             programComplete = true;
                             break;
                         default:
-                            Console.WriteLine("Please select an option from the list");
+                            Console.WriteLine();
+                            Format.Error("Please select an option from the list");
                             break;
                     }
                 }
@@ -54,6 +55,7 @@ namespace bankingLedger
         {
             Console.WriteLine();
             Format.Prompt("Please enter your username");
+            Console.Write("username: ");
             string username = Console.ReadLine();            
             try
             {
@@ -75,21 +77,23 @@ namespace bankingLedger
                     }
                     catch (Exception e)
                     {
-                        var errors = new string[2] { e.Message, "Please try again" };
-                        Format.Error(errors);
+                        Console.WriteLine();
+                        Format.Error(e.Message);
+                        Format.Error("Please try again");
                     }
                 }                    
             }
             catch (Exception e)
             {
-                var errors = new string[1] { e.Message };
-                Format.Error(errors);
+                Console.WriteLine();
+                Format.Error(e.Message);
             }
         }
 
         static void CreateAccount()
         {
-            Format.Prompt("\nPlease type in your desired username");
+            Format.Prompt("\nPlease type in your desired username (usernames are case-sensitive)");
+            Console.Write("username: ");
             string username = Console.ReadLine();
 
             try
@@ -107,8 +111,8 @@ namespace bankingLedger
                 session.Main();
             } catch (Exception e)
             {
-                var errors = new string[1] { e.Message };
-                Format.Error(errors);
+                Console.WriteLine();
+                Format.Error(e.Message);
             }
         }
     }

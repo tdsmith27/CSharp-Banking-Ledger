@@ -18,7 +18,7 @@ namespace bankingLedger
 
         public string Log()
         {
-            return $"{this.time}: {this.type} of ${this.amount.ToString("n2")} resulting in a balance of ${this.resultingBalance.ToString("n2")}";
+            return $"{this.time}: {this.type} - ${this.amount.ToString("n2")} - balance: ${this.resultingBalance.ToString("n2")}";
         }
         
     }

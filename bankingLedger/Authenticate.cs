@@ -12,7 +12,7 @@ namespace bankingLedger
                     return account;
                 }
             }
-            throw new Exception("Username not found");
+            throw new Exception("Username not found - would you like to create an account?\nRemember, usernames are case-sensitive");
         }            
     }
 }

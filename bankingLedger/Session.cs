@@ -13,7 +13,7 @@ namespace bankingLedger
         public void Main()
         {
             Console.Clear();
-            Console.WriteLine($"You are logged in as {account.username}");
+            Format.Message($"You are logged in as {account.username}");
             bool loggedIn = true;
 
             while (loggedIn)
@@ -59,7 +59,8 @@ namespace bankingLedger
                             Console.Clear();
                             break;
                         default:
-                            Format.Error(new string[1] { "Please select an option from the list" });
+                            Console.WriteLine();
+                            Format.Error("Please select an option from the list");
                             break;
                     }
                 }
@@ -68,7 +69,8 @@ namespace bankingLedger
 
         void Deposit()
         {
-            Format.Prompt("How much would you like to deposit?");
+            Console.WriteLine();
+            Format.Prompt("How much would you like to deposit?\n(enter 0 to cancel transaction)");
             bool success = false;
             while (!success)
             {
@@ -76,21 +78,25 @@ namespace bankingLedger
                 try
                 {
                     Validate.Transaction(deposit);
-                    account.Deposit(decimal.Parse(deposit));
+                    if (deposit == "0")
+                        break;
+                    account.Deposit(decimal.Parse(deposit));                    
                     success = true;
-                    Format.Message("Deposit Successful");
+                    Format.Message("\nDeposit Successful");
                 }
                 catch (Exception e)
                 {
-                    var errors = new string[2] { e.Message, "Please enter a valid deposit amount" };
-                    Format.Error(errors);
+                    Console.WriteLine();
+                    Format.Error(e.Message);
+                    Format.Error("Please enter a valid deposit amount\n(enter 0 to cancel transaction)");
                 }
             }
         }
 
         void Withdraw()
         {
-            Format.Prompt("How much would you like to withdraw?");
+            Console.WriteLine();
+            Format.Prompt("How much would you like to withdraw?\n(enter 0 to cancel transaction)");
             bool success = false;
             while (!success)
             {
@@ -98,14 +104,17 @@ namespace bankingLedger
                 try
                 {
                     Validate.Transaction(withdrawal);
+                    if (withdrawal == "0")
+                        break;
                     account.Withdraw(decimal.Parse(withdrawal));
                     success = true;
-                    Format.Message("Withdrawal Successful");
+                    Format.Message("\nWithdrawal Successful");
                 }
                 catch (Exception e)
                 {
-                    var errors = new string[2] { e.Message, "Please enter a valid withdrawal amount" };
-                    Format.Error(errors);                    
+                    Console.WriteLine();
+                    Format.Error(e.Message);
+                    Format.Error("Please enter a valid withdrawal amount\n(enter 0 to cancel transaction)");
                 }
             }
         }
