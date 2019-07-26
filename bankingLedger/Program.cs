@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace bankingLedger
 {
-    class Program
+    static class Program
     {
 
         public static List<Account> accounts = new List<Account> {new Account("trevor", "1234") };

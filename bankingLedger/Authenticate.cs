@@ -1,7 +1,7 @@
 ﻿using System;
 namespace bankingLedger
 {
-    public class Authenticate
+    public static class Authenticate
     {
         public static Account Username(string username)
         {

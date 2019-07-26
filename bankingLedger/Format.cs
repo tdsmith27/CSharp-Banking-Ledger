@@ -1,7 +1,7 @@
 ﻿using System;
 namespace bankingLedger
 {
-    public class Format
+    public static class Format
     {
         public static void Error(string error)
         {

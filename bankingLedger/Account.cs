@@ -8,37 +8,48 @@ namespace bankingLedger
         public string username { get; private set; }
         public string pin { private get; set; }
         List<Transaction> transactionLog;
-        decimal balance;
 
         public Account(string username, string pin)
         {
             this.username = username;
             this.pin = pin;
             transactionLog = new List<Transaction>();
-            balance = 0;
-        }      
+        }
 
         public void Deposit(decimal amount)
         {
-            var transaction = new Transaction("Deposit", amount, balance + amount);
-            balance += amount;
+            var transaction = new Transaction("Deposit", amount);
             transactionLog.Add(transaction);
         }
 
         public void Withdraw (decimal amount)
         {
+            decimal balance = CheckBalance();
             if (amount > balance)
             {
                 throw new Exception("Not enough funds");
             }
-            var transaction = new Transaction("Withdrawal", amount, balance - amount);
-            balance -= amount;
+            var transaction = new Transaction("Withdrawal", amount);
             transactionLog.Add(transaction);            
         }
 
-        public string CheckBalance()
+        public decimal CheckBalance()
         {
-            return balance.ToString("n2");
+            decimal balance = 0;
+
+            foreach (var transaction in transactionLog)
+            {
+                if (transaction.type == "Deposit")
+                {
+                    balance += transaction.amount;
+                }
+                if (transaction.type == "Withdrawal")
+                {
+                    balance -= transaction.amount;
+                }
+            }
+
+            return balance;
         }
 
         public void LogTransactions()

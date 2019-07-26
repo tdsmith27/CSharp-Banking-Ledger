@@ -45,7 +45,7 @@ namespace bankingLedger
                         case "3":
                             validMenuChoice = true;
                             Console.WriteLine();
-                            Format.Message($"Your account balance is ${account.CheckBalance()}");
+                            Format.Message($"Your account balance is ${account.CheckBalance().ToString("n2")}");
                             break;
                         case "4":
                             validMenuChoice = true;
