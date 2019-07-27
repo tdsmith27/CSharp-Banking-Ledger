@@ -7,7 +7,7 @@ namespace bankingLedger
     {
         public string username { get; private set; }
         public string pin { private get; set; }
-        List<Transaction> transactionLog;
+        public List<Transaction> transactionLog { get; private set; }
 
         public Account(string username, string pin)
         {
