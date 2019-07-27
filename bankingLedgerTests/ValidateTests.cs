@@ -7,99 +7,57 @@ namespace bankingLedgerTests
     public class ValidateTests
     {
 
-        // Transaction validation
+        // Valid Transaction Inputs
 
-        [Fact]
-        public void Transaction_Should_Validate_Valid_Input_1()
+        [Theory]
+        [InlineData("100")]
+        [InlineData("100.00")]
+        [InlineData("100.6")]
+        [InlineData("100.")]
+        [InlineData("0")]
+        public void Transaction_Should_Validate_Valid_Input_Theory(string transaction)
         {
-            Exception e = Record.Exception(() => Validate.Transaction("100"));
+            Exception e = Record.Exception(() => Validate.Transaction(transaction));
 
             Assert.Null(e);
-        }
+        }                
 
-        [Fact]
-        public void Transaction_Should_Validate_Valid_Input_2()
+        // Invalid Transaction Inputs
+
+        [Theory]
+        [InlineData("-100")]
+        [InlineData("-100.504")]
+        [InlineData("one hundred dollars")]
+        public void Transaction_Should_Not_Validate_Invalid_Inputs_Theory(string transaction)
         {
-            Exception e = Record.Exception(() => Validate.Transaction("100.00"));
-
-            Assert.Null(e);
-        }
-
-        [Fact]
-        public void Transaction_Should_Validate_Valid_Input_3()
-        {
-            Exception e = Record.Exception(() => Validate.Transaction("100.6"));
-
-            Assert.Null(e);
-        }
-
-        [Fact]
-        public void Transaction_Should_Validate_Valid_Input_4()
-        {
-            Exception e = Record.Exception(() => Validate.Transaction("100."));
-
-            Assert.Null(e);
-        }
-
-        [Fact]
-        public void Transaction_Should_Not_Validate_Negative_Input()
-        {
-            Exception e = Assert.Throws<Exception>(() => Validate.Transaction("-100"));
+            Exception e = Assert.Throws<Exception>(() => Validate.Transaction(transaction));
 
             Assert.Equal("Transaction amount must be a positive number with up to 2 decimal places", e.Message);
         }
 
-        [Fact]
-        public void Transaction_Should_Not_Validate_Input_With_3_Decimals()
+        // Valid Password Inputs
+
+        [Theory]
+        [InlineData("abcdef")]
+        [InlineData("abc123")]
+        public void Password_Should_Validate_Valid_Inputs_Theory(string password)
         {
-            Exception e = Assert.Throws<Exception>(() => Validate.Transaction("100.504"));
-
-            Assert.Equal("Transaction amount must be a positive number with up to 2 decimal places", e.Message);
-        }
-
-        [Fact]
-        public void Transaction_Should_Not_Validate_Text_Input()
-        {
-            Exception e = Assert.Throws<Exception>(() => Validate.Transaction("One hundred dollars"));
-
-            Assert.Equal("Transaction amount must be a positive number with up to 2 decimal places", e.Message);
-        }
-
-
-        // Password validation
-
-        [Fact]
-        public void Password_Should_Validate_Valid_Input_1()
-        {
-            Exception e = Record.Exception(() => Validate.Password("abcdef"));
+            Exception e = Record.Exception(() => Validate.Password(password));
 
             Assert.Null(e);
         }
 
-        [Fact]
-        public void Password_Should_Validate_Valid_Input_2()
-        {
-            Exception e = Record.Exception(() => Validate.Password("abc123"));
+        // Invalid Password Inputs
 
-            Assert.Null(e);
-        }
-
-        [Fact]
-        public void Password_Should_Not_Validate_Input_With_Whitespace()
+        [Theory]
+        [InlineData("no whitespace")]
+        [InlineData("short")]
+        public void Password_Should_Not_Validate_Invalid_Inputs_Theory(string password)
         {
-            Exception e = Assert.Throws<Exception>(() => Validate.Password("wrong pass"));
+            Exception e = Assert.Throws<Exception>(() => Validate.Password(password));
 
             Assert.Equal("Password must be at least 6 characters long with no whitespaces", e.Message);
         }
-
-        [Fact]
-        public void Password_Should_Not_Validate_Short_Input()
-        {
-            Exception e = Assert.Throws<Exception>(() => Validate.Password("wrong"));
-
-            Assert.Equal("Password must be at least 6 characters long with no whitespaces", e.Message);
-        }
-
 
         // New Username validation
 
@@ -109,7 +67,7 @@ namespace bankingLedgerTests
             Exception e = Record.Exception(() => Validate.NewUsername("Trevor"));
 
             Assert.Null(e);
-        }
+        }        
 
         [Fact]
         public void NewUsername_Should_Not_Validate_Existing_Username()
@@ -120,7 +78,5 @@ namespace bankingLedgerTests
             Exception e = Record.Exception(() => Validate.NewUsername("trevor"));
             Assert.Equal("That username already exists - would you like to log in?", e.Message);
         }
-
-
     }
 }

@@ -16,8 +16,24 @@ namespace bankingLedgerTests
         [Fact]
         public void CheckBalance_Should_Match_Deposits()
         {            
-            account.Deposit(100);
+            account.Deposit(100);            
             Assert.Equal(100, account.CheckBalance());
+        }
+
+        [Fact]
+        public void CheckBalance_Should_Match_Multiple_Deposits()
+        {
+            account.Deposit(100);
+            account.Deposit(100);
+            Assert.Equal(200, account.CheckBalance());
+        }
+
+        [Fact]
+        public void CheckBalance_Should_Match_Deposits_With_Decimals()
+        {
+            account.Deposit(100);
+            account.Deposit(0.65m);
+            Assert.Equal(100.65m, account.CheckBalance());
         }
 
         [Fact]
