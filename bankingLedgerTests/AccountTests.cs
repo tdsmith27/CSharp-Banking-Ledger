@@ -11,11 +11,11 @@ namespace bankingLedgerTests
         public AccountTests()
         {
             account = new Account("trevor", "password");
-        }
+        }        
 
         [Fact]
         public void CheckBalance_Should_Match_Deposits()
-        {
+        {            
             account.Deposit(100);
             Assert.Equal(100, account.CheckBalance());
         }

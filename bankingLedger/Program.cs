@@ -4,10 +4,15 @@ using System.Collections.Generic;
 
 namespace bankingLedger
 {
-    static class Program
+    public static class Program
     {
 
-        public static List<Account> accounts = new List<Account> {new Account("trevor", "password") };
+        public static List<Account> accounts { get; private set;}
+
+        static Program()
+        {
+            accounts = new List<Account>();
+        }
 
         static void Main(string[] args)
         {
