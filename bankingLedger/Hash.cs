@@ -8,10 +8,10 @@ namespace bankingLedger
     {
         public static string Create(string password, string salt)
         {
-            var bytes = KeyDerivation.Pbkdf2(
+            Byte[] bytes = KeyDerivation.Pbkdf2(
                             password: password,
                             salt: Encoding.UTF8.GetBytes(salt),
-                            prf: KeyDerivationPrf.HMACSHA512,
+                            prf: KeyDerivationPrf.HMACSHA256,
                             iterationCount: 10000,
                             numBytesRequested: 256 / 8);
 
