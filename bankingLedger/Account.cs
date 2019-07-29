@@ -6,13 +6,14 @@ namespace bankingLedger
     public class Account
     {
         public string username { get; private set; }
-        public string pin { private get; set; }
+        private string hash;
+        private string salt;
         public List<Transaction> transactionLog { get; private set; }
 
-        public Account(string username, string pin)
+        public Account(string username, string password)
         {
             this.username = username;
-            this.pin = pin;
+            this.SavePassword(password);
             transactionLog = new List<Transaction>();
         }
 
@@ -73,9 +74,25 @@ namespace bankingLedger
             }
         }
 
-        public void AuthenticatePassword(string pin)
+        private void SavePassword(string password)
         {
-            if (pin != this.pin)
+            try
+            {
+                string salt = Salt.Create();
+                string hash = Hash.Create(password, salt);
+
+                this.salt = salt;
+                this.hash = hash;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public void AuthenticatePassword(string password)
+        {
+            if (!Hash.Authenticate(password, salt, hash))
                 throw new Exception("Password does not match");
         }
     }
