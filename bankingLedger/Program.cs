@@ -64,7 +64,7 @@ namespace bankingLedger
             string username = Console.ReadLine();            
             try
             {
-                var account = Authenticate.Username(username);
+                var account = Validate.ExistingUsername(username);
                 bool isMatch = false;
 
                 while(!isMatch)

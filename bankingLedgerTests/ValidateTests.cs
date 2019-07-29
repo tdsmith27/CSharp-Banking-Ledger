@@ -78,5 +78,26 @@ namespace bankingLedgerTests
             Exception e = Record.Exception(() => Validate.NewUsername("trevor"));
             Assert.Equal("That username already exists - would you like to log in?", e.Message);
         }
+
+        // Existing Username Validation
+
+        [Fact]
+        public void ExistingUsername_Should_Validate_Existing_Username()
+        {
+            Account account = new Account("existingUser", "password");
+            Program.accounts.Add(account);
+
+            Exception e = Record.Exception(() => Validate.ExistingUsername("existingUser"));
+
+            Assert.Null(e);
+        }
+
+        [Fact]
+        public void ExistingUsername_Should_Not_Validate_New_Username()
+        {
+            Exception e = Record.Exception(() => Validate.ExistingUsername("newUser"));
+
+            Assert.Equal("Username not found - would you like to create an account?\nRemember, usernames are case-sensitive", e.Message);
+        }
     }
 }
